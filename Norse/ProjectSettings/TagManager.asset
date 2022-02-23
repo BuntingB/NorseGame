@@ -5,18 +5,25 @@ TagManager:
   serializedVersion: 2
   tags:
   - Terrain
+  - FriendlyMelee
+  - FriendlySword
+  - EnemySword
+  - EnemyArrow
+  - EnemyDagger
+  - FriendlyArrow
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FriendlyArrow
+  - FriendlyWeapon
+  - Enemy
+  - EnemyArrow
+  - EnemyWeapon
   - 
   - 
   - 
@@ -41,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Weapons
+    uniqueID: 3794369159
     locked: 0
