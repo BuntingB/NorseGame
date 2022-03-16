@@ -12,6 +12,7 @@ TagManager:
   - EnemyDagger
   - FriendlyArrow
   - Enemy
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Enemy
   - EnemyArrow
   - EnemyWeapon
-  - 
+  - Terrain
   - 
   - 
   - 

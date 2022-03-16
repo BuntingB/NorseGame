@@ -96,6 +96,10 @@ MonoBehaviour:
   - {fileID: 5482350032244310134, guid: e1f8a467015ae094aa5d9c413b02e8f4, type: 3}
   - {fileID: 1219470184679502679, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
   - {fileID: 816616709818666595, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+  _weaponDropPrefabs:
+  - {fileID: 4044843589075163066, guid: 4f981d4445919c74695877326d3006ac, type: 3}
+  - {fileID: 3245663037823068784, guid: bd3dab31ccc02a340989425dbc425a6f, type: 3}
+  - {fileID: 8649888276632850414, guid: dd5746581b2f67d4d864162335003b11, type: 3}
   _punchHitbox: {fileID: 1672986200168474453, guid: 7b9e1a3ba519df34697cc89e6bd86b2f, type: 3}
   _weaponParent: {fileID: 8584805082185846406}
   _isHoldingWeapon: 0
