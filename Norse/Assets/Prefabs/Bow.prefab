@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arrow: {fileID: 8764135943833028433, guid: 2e906a00f9b337f4789b7c7c8971b766, type: 3}
+  _enemyArrow: {fileID: 6276511525094978411, guid: b6749d929b887924cad0e7b450336e25, type: 3}
+  _isEnemyWeapon: 0
 --- !u!1 &3101202520800117916
 GameObject:
   m_ObjectHideFlags: 0

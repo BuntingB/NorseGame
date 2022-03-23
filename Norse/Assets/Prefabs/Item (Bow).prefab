@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2808797198607656342}
   - component: {fileID: 7448138929606350843}
   - component: {fileID: 6995042177237910089}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2808797198607656340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 0.5, z: 1}
+  m_LocalScale: {x: 2.0099201, y: 0.9136, z: 1.8272}
   m_Children: []
   m_Father: {fileID: 9022824371176149728}
   m_RootOrder: 0
@@ -124,7 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemType: Bow
   _permanentItem: 0
-  _itemParent: {fileID: 8649888276632850414}
 --- !u!1 &8649888276632850414
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +135,7 @@ GameObject:
   - component: {fileID: 9022824371176149728}
   - component: {fileID: 2263178067758599383}
   - component: {fileID: 5336632948808828158}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Item (Bow)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,6 +259,26 @@ PrefabInstance:
     - target: {fileID: 816616709818666595, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
       propertyPath: m_Name
       value: Bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 816616709818666595, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101202520800117916, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101202521618096186, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101202521888975171, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101202522046973081, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8772981189807461148, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
       propertyPath: m_Enabled

@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitbox: {fileID: 6369963923677402268, guid: 70f664210a68ed44c994ebf05b78cca5, type: 3}
+  _enemyHitbox: {fileID: 6292763126190864603, guid: b22896e0ea73dd444b163f460d5d5928, type: 3}
+  _isEnemyWeapon: 0
 --- !u!1 &8920356308964865883
 GameObject:
   m_ObjectHideFlags: 0

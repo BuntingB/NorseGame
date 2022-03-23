@@ -1,7 +1,7 @@
 /* Subclass for the sword weapon
  * Programmer: Brandon Bunting
  * Date Created: 02/18/2022
- * Date Modified: 02/28/2022
+ * Date Modified: 03/23/2022
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,11 +11,14 @@ public class Sword : Weapon
 {
     //
     public GameObject _hitbox;
+    public GameObject _enemyHitbox;
+    public bool _isEnemyWeapon = false;
 
     //
     Transform _trans;
     float _timeToNextAttack = 0f;
-    float _cooldown = 0.5f;
+    float _cooldown = 0.8f;
+    float _enemyCooldown = 1.6f;
     float _damage = 25f;
     string _weaponType = "Sword";
 
@@ -30,11 +33,22 @@ public class Sword : Weapon
     {
         if (CanAttack(_timeToNextAttack))
         {
-            GameObject sword = Instantiate(_hitbox, _trans.position, _trans.rotation);
-            sword.GetComponent<WeaponHitbox>().SetDamage(_damage, attackModifier);
-            Destroy(sword, 0.2f);
+            if (!_isEnemyWeapon) 
+            {
+                GameObject sword = Instantiate(_hitbox, _trans.position, _trans.rotation);
+                sword.GetComponent<WeaponHitbox>().SetDamage(_damage, attackModifier);
+                Destroy(sword, 0.2f);
 
-            _timeToNextAttack = Time.realtimeSinceStartup + _cooldown;
+                _timeToNextAttack = Time.realtimeSinceStartup + _cooldown;
+            }
+            else
+            {
+                GameObject sword = Instantiate(_enemyHitbox, _trans.position, _trans.rotation);
+                sword.GetComponent<WeaponHitbox>().SetDamage(_damage, attackModifier);
+                Destroy(sword, 0.2f);
+
+                _timeToNextAttack = Time.realtimeSinceStartup + _enemyCooldown;
+            }
         }
     }
 

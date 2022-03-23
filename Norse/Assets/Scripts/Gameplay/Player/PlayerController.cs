@@ -1,7 +1,7 @@
 /* Script to control the player object in "Project Norse"
  * Programmer: Brandon Bunting
  * Date Created: 01/28/2022
- * Date Modified: 03/15/2022
+ * Date Modified: 03/22/2022
  */
 
 using System.Collections;
@@ -15,19 +15,18 @@ public class PlayerController : MonoBehaviour
     #region Player body & stat variables
     //Player body
     public GameObject _playerObject;
+    public GameObject _wallDetector;
     public Rigidbody2D _rb;
     public Transform _trans;
     private Player _player;
 
     //Player stats
-    [Range(1.0f, 10.0f)]
     public float _playerSpeed = 3.0f;
-    [Range(1.0f, 10.0f)]
     public float _playerJumpHeight = 5.0f;
+    public float _currentSpeed;
+    private Vector2 _maxPlayerSpeed = new Vector2(8.0f, 10.0f);
     private bool _isGrounded = false;
-    private bool _isClimbing = false;
-    private float _accelerationSpeed;
-    private float _decelerationSpeed;
+    public bool _isClimbing = false;
 
     private bool _controlsDisabled = false;
 
@@ -64,6 +63,7 @@ public class PlayerController : MonoBehaviour
     private bool _isInteracting = false;
 
     private Interactables item;
+    private Door door;
     #endregion
 
     // Awake is called as the script loads
@@ -98,7 +98,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Climb();
+        _currentSpeed = _rb.velocity.x;
+        _isClimbing = _wallDetector.GetComponent<WallDetector>()._isOnWall;
     }
 
     // Receives player input and controls player accordingly
@@ -106,37 +107,52 @@ public class PlayerController : MonoBehaviour
     {
         if (!_controlsDisabled)
         {
-            if (_isGrounded && yDir == 1)
+            if (yDir == 1 && _isGrounded)
             {
-                _rb.AddForce(new Vector2(0f, _playerJumpHeight * _speedModifier[_currentPrefab + 1]), ForceMode2D.Impulse);
+                _rb.AddForce(transform.up * _playerJumpHeight * _speedModifier[_currentPrefab + 1], ForceMode2D.Impulse);
                 _isGrounded = false;
+            }
+
+            if (_isClimbing)
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x, yDir * 4f);
+                if (xDir != 0 && yDir != 0)
+                {
+                    _rb.AddForce(new Vector2(xDir * 3f, yDir * 2), ForceMode2D.Impulse);
+                }
             }
 
             xDir *= _playerSpeed * _speedModifier[_currentPrefab + 1] * 100 * Time.fixedDeltaTime;
 
             Vector2 playerVelocity = new Vector2(xDir, _rb.velocity.y);
 
+            if (Mathf.Abs(_currentSpeed) <= _maxPlayerSpeed.x * _speedModifier[_currentPrefab + 1])
+            {
+                _rb.AddForce(playerVelocity, ForceMode2D.Force);
+            }
+            else if(_rb.velocity.x > 0)
+            {
+                _rb.velocity = new Vector2(_maxPlayerSpeed.x * _speedModifier[_currentPrefab + 1], _rb.velocity.y);
+            }
+            else if (_rb.velocity.x < 0)
+            {
+                _rb.velocity = new Vector2(-_maxPlayerSpeed.x * _speedModifier[_currentPrefab + 1], _rb.velocity.y);
+            }
+
+            _rb.drag = Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0 ? 5 : 0;
+
             //Player Rotation for Movement
-            if (playerVelocity.x < 0)
+            if (Input.GetAxis("Horizontal") < 0)
             {
                 _trans.rotation = Quaternion.Euler(0, 180, 0);
             }
-            else if (playerVelocity.x > 0)
+            else if (Input.GetAxis("Horizontal") > 0)
             {
                 _trans.rotation = Quaternion.Euler(0, 0, 0);
             }
-
-            _rb.velocity = playerVelocity;
         }
-    }
 
-    // Receives player input for climbing and controls player accordingly
-    private void Climb()
-    {
-        if (_isClimbing && !_controlsDisabled)
-        {
-            _rb.velocity = new Vector2(_rb.velocity.x, Input.GetAxisRaw("Vertical") * 4f);
-        }
+        
     }
 
     // Kill player, display death message, and stop time
@@ -211,6 +227,10 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             item.DestroyOnEquip();
+        }
+        if (_isInteracting && door != null)
+        {
+            door.OpenDoor();
         }
     }
 
@@ -315,28 +335,19 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < collision.contacts.Length; i++)
             {
-                if (collision.contacts[i].normal.y > 0.5)
+                if (collision.contacts[i].normal.y > 0.5 && !_isClimbing)
                 {
                     _isGrounded = true;
-                }
-                if (collision.contacts[i].normal.x < 1.1)
-                {
-                    _isClimbing = true;
                 }
             }
         }
     }
 
-    // Collision Detection
+    // 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.tag == "Terrain") {
             _isGrounded = false;
-            if (_isClimbing)
-            {
-                _isGrounded = true;
-            }
-            _isClimbing = false;
         }
         if (collision.collider.tag == "EnemyArrow")
         {
@@ -351,7 +362,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Interactable")
         {
-            item = collision.gameObject.GetComponent<Interactables>();
+            collision.gameObject.TryGetComponent<Interactables>(out item);
+            collision.gameObject.TryGetComponent<Door>(out door);
         }
         if (collision.tag == "EnemySword" || collision.tag == "EnemyMelee")
         {
@@ -367,6 +379,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "Interactable")
         {
             item = null;
+            door = null;
         }
     }
     #endregion

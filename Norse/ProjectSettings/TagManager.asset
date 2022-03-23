@@ -9,10 +9,10 @@ TagManager:
   - FriendlySword
   - EnemySword
   - EnemyArrow
-  - EnemyDagger
   - FriendlyArrow
   - Enemy
   - Interactable
+  - EnemyMelee
   layers:
   - Default
   - TransparentFX
@@ -24,7 +24,7 @@ TagManager:
   - FriendlyWeapon
   - Enemy
   - EnemyArrow
-  - EnemyWeapon
+  - Weapon
   - Terrain
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Weapons
     uniqueID: 3794369159
+    locked: 0
+  - name: Wall
+    uniqueID: 2707009165
     locked: 0

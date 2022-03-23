@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7536473737829918738}
   - component: {fileID: 8584805080636000253}
-  - component: {fileID: 8584805080636000250}
+  - component: {fileID: 941918051419377023}
   - component: {fileID: 8584805080636000252}
   - component: {fileID: 8584805080636000255}
   m_Layer: 3
@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 8584805082340695163}
   - {fileID: 8584805082185846425}
+  - {fileID: 7310261690836488197}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,7 +58,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &8584805080636000250
+--- !u!70 &941918051419377023
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,10 +87,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerObject: {fileID: 3134890834090414480}
+  _wallDetector: {fileID: 4262573518559595769}
   _rb: {fileID: 8584805080636000253}
   _trans: {fileID: 7536473737829918738}
   _playerSpeed: 4
-  _playerJumpHeight: 5
+  _playerJumpHeight: 3.5
+  _currentSpeed: 0
+  _isClimbing: 0
   _isDead: 0
   _deathMessage: {fileID: 0}
   _weaponPrefabs:
@@ -102,6 +106,8 @@ MonoBehaviour:
   - {fileID: 8649888276632850414, guid: dd5746581b2f67d4d864162335003b11, type: 3}
   _punchHitbox: {fileID: 1672986200168474453, guid: 7b9e1a3ba519df34697cc89e6bd86b2f, type: 3}
   _weaponParent: {fileID: 8584805082185846406}
+  _itemParent: {fileID: 0}
+  _ammoDisplay: {fileID: 0}
   _isHoldingWeapon: 0
   _weaponObjInHand: {fileID: 0}
 --- !u!114 &8584805080636000255
@@ -116,6 +122,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b61cb196855e10498ab779f4a13b9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4262573518559595769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7310261690836488197}
+  - component: {fileID: 1269279818038414517}
+  - component: {fileID: 1858018519684177259}
+  m_Layer: 3
+  m_Name: Wall Detector
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7310261690836488197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4262573518559595769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7536473737829918738}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1269279818038414517
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4262573518559595769}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: f640e1a3f9452934a91ce91d3cbdf0c5, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.2316485, y: -0.012733996}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.080745876, y: 0.7707876}
+  m_EdgeRadius: 0
+--- !u!114 &1858018519684177259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4262573518559595769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30bdeae974922164ea1157d456d1c25f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isOnWall: 0
 --- !u!1 &8584805082185846406
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +293,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 5
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 0, g: 1, b: 0.9911163, a: 1}
   m_FlipX: 0

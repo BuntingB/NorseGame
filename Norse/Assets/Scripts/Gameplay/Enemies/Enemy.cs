@@ -1,3 +1,9 @@
+/* Superclass for enemies
+ * Programmer: Brandon Bunting
+ * Date Created: 02/18/2022
+ * Date Modified: 03/22/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,13 +32,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //
+    // Kills enemy object
     private void Die()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().HealDamage(25f);
         Destroy(gameObject);
     }
 
-    //
+    // Adds health to current health
     public void HealDamage(float healAmount)
     {
         _currentHealth += healAmount;
@@ -43,31 +50,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //
+    // Subtracts damage from current health
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage - (damage * _damageResilience);
     }
 
-    //
+    // Resets enemy health to maximum
     private void ResetHealth()
     {
         _currentHealth = _maxHealth;
     }
 
-    //
+    // Returns max health value
     public float GetMaxHealth()
     {
         return _maxHealth;
     }
 
-    //
+    // Returns current health value
     public float GetHealth()
     {
         return _currentHealth;
     }
 
-    //
+    //Collision and Triggers
+    #region Collision Detection
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "FriendlyArrow")
@@ -103,4 +111,5 @@ public class Enemy : MonoBehaviour
             TakeDamage(collision.gameObject.GetComponent<WeaponHitbox>().GetDamage());
         }
     }
+    #endregion
 }

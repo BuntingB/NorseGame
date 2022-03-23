@@ -1,7 +1,7 @@
 /* Subclass for the bow weapon
  * Programmer: Brandon Bunting
  * Date Created: 02/18/2022
- * Date Modified: 02/28/2022
+ * Date Modified: 03/23/2022
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +11,8 @@ public class Bow : Weapon
 {
     //
     public GameObject _arrow;
+    public GameObject _enemyArrow;
+    public bool _isEnemyWeapon = false;
 
     //
     Transform _trans;
@@ -18,7 +20,8 @@ public class Bow : Weapon
     float _damage = 20f;
     float _arrowSpeed = 20f;
     float _timeToNextAttack = 0f;
-    float _cooldown = 0.6f;
+    float _cooldown = 1f;
+    float _enemyCooldown = 3f;
     string _weaponType = "Bow";
 
     //
@@ -36,18 +39,25 @@ public class Bow : Weapon
     //
     private void AimAt()
     {
-        Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        if (!_isEnemyWeapon) 
+        {
+            Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 
-        Vector2 lookAtDir;
+            Vector2 lookAtDir;
 
-        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_trans.position);
+            Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_trans.position);
 
-        lookAtDir = mousePos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
+            lookAtDir = mousePos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
 
-        float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;
-        angle += 90; //Weapon Model faces the right, where the above math assumes it is oriented upwards
+            float angle = Mathf.Atan2(-lookAtDir.x, lookAtDir.y) * Mathf.Rad2Deg;
+            angle += 90; //Weapon Model faces the right, where the above math assumes it is oriented upwards
 
-        _trans.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _trans.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+        else
+        {
+            //Find player pos and calculate angle for shot
+        }
     }
 
     //
@@ -55,16 +65,31 @@ public class Bow : Weapon
     {
         if (CanAttack(_timeToNextAttack) && _ammo > 0)
         {
-            GameObject arrow = Instantiate(_arrow, _trans.position, _trans.rotation);
-            Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
+            if (!_isEnemyWeapon) {
+                GameObject arrow = Instantiate(_arrow, _trans.position, _trans.rotation);
+                Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
 
-            arrow.GetComponent<Arrow>().SetDamage(_damage, attackModifier);
+                arrow.GetComponent<Arrow>().SetDamage(_damage, attackModifier);
 
-            rb.AddForce(transform.right * _arrowSpeed, ForceMode2D.Impulse);
+                rb.AddForce(transform.right * _arrowSpeed, ForceMode2D.Impulse);
 
-            _ammo -= 1;
+                _ammo -= 1;
 
-            _timeToNextAttack = Time.realtimeSinceStartup + _cooldown;
+                _timeToNextAttack = Time.realtimeSinceStartup + _cooldown;
+            }
+            else
+            {
+                GameObject arrow = Instantiate(_enemyArrow, _trans.position, _trans.rotation);
+                Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
+
+                arrow.GetComponent<Arrow>().SetDamage(_damage, attackModifier);
+
+                rb.AddForce(transform.right * _arrowSpeed, ForceMode2D.Impulse);
+
+                _ammo -= 1;
+
+                _timeToNextAttack = Time.realtimeSinceStartup + _enemyCooldown;
+            }
         }
     }
 

@@ -1,3 +1,9 @@
+/* Script for enemy health bars
+ * Programmer: Brandon Bunting
+ * Date Created: 02/18/2022
+ * Date Modified: 03/22/2022
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

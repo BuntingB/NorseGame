@@ -708,3 +708,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitbox: {fileID: 1672986200168474453, guid: 7b9e1a3ba519df34697cc89e6bd86b2f, type: 3}
+  _enemyHitbox: {fileID: 5731612649454593051, guid: 9081339f7c914b649b4720e4df8c8787, type: 3}
+  _isEnemyWeapon: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4600335960369068327}
   - component: {fileID: 2782297559201025238}
   - component: {fileID: 3157523594064759129}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Item (Sword)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3301560576153882967}
   - component: {fileID: 8658396871786322477}
   - component: {fileID: 335951588265034853}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -108,8 +108,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3301560576153882965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
-  m_LocalScale: {x: 0.5, y: 1.2, z: 1}
+  m_LocalPosition: {x: 0.0049, y: -0.15, z: 0}
+  m_LocalScale: {x: 1.0298284, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4600335960369068327}
   m_RootOrder: 0
@@ -205,7 +205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemType: Sword
   _permanentItem: 0
-  _itemParent: {fileID: 3245663037823068784}
 --- !u!1001 &3301560577132303442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,6 +215,10 @@ PrefabInstance:
     - target: {fileID: 1219470184679502679, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 1219470184679502679, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2821908532657306637, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
       propertyPath: m_RootOrder
@@ -264,6 +267,38 @@ PrefabInstance:
     - target: {fileID: 4673143263587394129, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356308964865883, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356309551444247, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356309553790422, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356309842974369, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356309921573797, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356310164476782, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356310300005153, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920356310457600448, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe834e3e9da74c64c9a0c82ae1e794ed, type: 3}
