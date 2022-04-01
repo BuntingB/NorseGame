@@ -1,7 +1,7 @@
 /* Script for button functionality
  * Programmer: Brandon Bunting
  * Date Created: 03/15/2022
- * Date Modified: 03/15/2022
+ * Date Modified: 03/31/2022
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -95,10 +95,17 @@ public class ButtonDefinition : MonoBehaviour
         }
     }
 
-    //
+    // Returns state of controls
     public bool GetDisableControls()
     {
         return _disableControls;
+    }
+
+    // Quits Application
+    public void DoExitGame()
+    {
+        Debug.Log("Application is closing.");
+        Application.Quit();
     }
 
 }

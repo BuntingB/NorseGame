@@ -1,7 +1,7 @@
 /* Subclass for the bow weapon
  * Programmer: Brandon Bunting
  * Date Created: 02/18/2022
- * Date Modified: 03/23/2022
+ * Date Modified: 03/31/2022
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -42,9 +42,7 @@ public class Bow : Weapon
         if (!_isEnemyWeapon) 
         {
             Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-
             Vector2 lookAtDir;
-
             Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(_trans.position);
 
             lookAtDir = mousePos - new Vector2(playerScreenPoint.x, playerScreenPoint.y);
@@ -57,6 +55,16 @@ public class Bow : Weapon
         else
         {
             //Find player pos and calculate angle for shot
+            Transform player = Utility.GetPlayerObject().GetComponent<Transform>();
+            Vector2 targetPos = player.position - transform.position;
+
+            float angle = Mathf.Atan2(-targetPos.x, targetPos.y) * Mathf.Rad2Deg;
+
+            angle += 90;
+
+            angle += player.position.x < transform.position.x ? -7 : 7;
+
+            _trans.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 

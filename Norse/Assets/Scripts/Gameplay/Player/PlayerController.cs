@@ -1,7 +1,7 @@
 /* Script to control the player object in "Project Norse"
  * Programmer: Brandon Bunting
  * Date Created: 01/28/2022
- * Date Modified: 03/22/2022
+ * Date Modified: 03/30/2022
  */
 
 using System.Collections;
@@ -211,8 +211,21 @@ public class PlayerController : MonoBehaviour
             _isInteracting = false;
         }
 
+        if (_isInteracting && door != null)
+        {
+            door.OpenDoor();
+            return;
+        }
+
         if (_isInteracting && item != null)
         {
+            LevelExit levelExit;
+            if (item.TryGetComponent<LevelExit>(out levelExit))
+            {
+                levelExit.ExitLevel();
+                return;
+            }
+
             int ammo = item.GetAmmo();
             switch (item.GetItemType())
             {
@@ -227,10 +240,6 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             item.DestroyOnEquip();
-        }
-        if (_isInteracting && door != null)
-        {
-            door.OpenDoor();
         }
     }
 
@@ -360,11 +369,6 @@ public class PlayerController : MonoBehaviour
     //
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Interactable")
-        {
-            collision.gameObject.TryGetComponent<Interactables>(out item);
-            collision.gameObject.TryGetComponent<Door>(out door);
-        }
         if (collision.tag == "EnemySword" || collision.tag == "EnemyMelee")
         {
             float damage = collision.gameObject.GetComponent<WeaponHitbox>().GetDamage();
@@ -373,13 +377,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+        {
+            if (collision.gameObject.TryGetComponent<Door>(out door)) 
+            {
+                item = null;
+            }
+            else
+            {
+                collision.gameObject.TryGetComponent<Interactables>(out item);
+            }
+        }
+    }
+
     //
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Interactable")
         {
-            item = null;
-            door = null;
+            if (collision.gameObject.TryGetComponent<Door>(out Door door1) && door1 == door)
+            {
+                door = null;
+            }
+            if (collision.gameObject.TryGetComponent<Interactables>(out Interactables item1) && item1 == item)
+            {
+                item = null;
+            }
         }
     }
     #endregion

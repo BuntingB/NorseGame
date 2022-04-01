@@ -1,7 +1,7 @@
 /* Script to control the player object's health
  * Programmer: Brandon Bunting
  * Date Created: 01/28/2022
- * Date Modified: 02/21/2022
+ * Date Modified: 03/30/2022
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -29,13 +29,6 @@ public class Player : MonoBehaviour
         {
             playerObj.Die();
         }
-
-        //For Testing purposes, DELETE FOR FINAL VERSION
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            TakeDamage(10);
-        }
-        //For Testing purposes, DELETE FOR FINAL VERSION
     }
 
     //

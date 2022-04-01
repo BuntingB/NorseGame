@@ -1,7 +1,7 @@
 /* Superclass for enemies
  * Programmer: Brandon Bunting
  * Date Created: 02/18/2022
- * Date Modified: 03/22/2022
+ * Date Modified: 04/01/2022
  */
 
 using System.Collections;
@@ -12,14 +12,17 @@ public class Enemy : MonoBehaviour
 {
     //
     Rigidbody2D _rb;
+    ScoreManager _scoreManager;
     private float _maxHealth = 100;
     private float _currentHealth;
     private float _damageResilience = 0f;
+    public int _pointsUponDeath = 10;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _scoreManager = GameObject.Find("HUD").GetComponent<ScoreManager>();
         ResetHealth();
     }
 
@@ -28,6 +31,19 @@ public class Enemy : MonoBehaviour
     {
         if (_currentHealth <= 0)
         {
+            if (TryGetComponent<Warrior>(out Warrior warrior))
+            {
+                warrior.DropWeapon();
+            }
+            else if (TryGetComponent<Thief>(out Thief thief))
+            {
+                thief.DropWeapon();
+            }
+            else if (TryGetComponent<Archer>(out Archer archer))
+            {
+                archer.DropWeapon();
+            }
+
             Die();
         }
     }
@@ -35,7 +51,8 @@ public class Enemy : MonoBehaviour
     // Kills enemy object
     private void Die()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().HealDamage(25f);
+        Utility.GetPlayerObject().GetComponent<Player>().HealDamage(25f);
+        _scoreManager.AddScore(_pointsUponDeath);
         Destroy(gameObject);
     }
 

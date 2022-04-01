@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071557d8d56ae04c96b23d0c7178019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pointsUponDeath: 10
 --- !u!114 &4449090288110592279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,11 +396,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36a2e369ba14104dbfe83c9a44bb92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponDropPrefab: {fileID: 8649888276632850414, guid: dd5746581b2f67d4d864162335003b11, type: 3}
   _playerPos: {fileID: 0}
   _renderer: {fileID: 7284740160274361386}
   _weaponObjInHand: {fileID: 6012108864666953088}
+  _weapon: {fileID: 2415506459257796863}
   _attackRange: {x: 5, y: 5}
   _speed: 5
+  _fleeDistance: 10
+  _isStatic: 0
 --- !u!1 &7284740160274361388
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +568,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+--- !u!1 &2415506459257796863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 816616709818666595, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
+  m_PrefabInstance: {fileID: 3085157890896115356}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3029886513302341833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 62205396843576917, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
@@ -573,7 +583,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8772981189807461148, guid: 35b0554bd8a48ec46a370c3516c92492, type: 3}
   m_PrefabInstance: {fileID: 3085157890896115356}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2415506459257796863}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 465363b67174f0942805a0800b36ecb8, type: 3}

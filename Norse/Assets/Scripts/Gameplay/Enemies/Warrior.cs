@@ -1,7 +1,7 @@
 /* Script for the Warrior enemy
  * Programmer: Brandon Bunting
  * Date Created: 03/22/2022
- * Date Modified: 03/23/2022
+ * Date Modified: 04/01/2022
  */
 
 using System.Collections;
@@ -11,11 +11,13 @@ using UnityEngine;
 public class Warrior : MonoBehaviour
 {
     //
+    public GameObject _weaponDropPrefab;
     public Transform _playerPos;
     private Enemy _enemy;
     private Rigidbody2D _rb;
     public Renderer _renderer;
     public Weapon _weaponObjInHand;
+    public GameObject _weapon;
     public Vector2 _attackRange = new Vector2(5, 5);
     float _attackModifier = 0.5f;
     public float _speed = 3.25f;
@@ -24,7 +26,8 @@ public class Warrior : MonoBehaviour
     // Called when object is enabled
     void OnEnable()
     {
-        _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        _enemy = GetComponent<Enemy>();
+        _playerPos = Utility.GetPlayerObject().GetComponent<Transform>();
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -73,10 +76,25 @@ public class Warrior : MonoBehaviour
     //
     void Attack()
     {
-        if (Mathf.Abs(_playerPos.position.x - transform.position.x) < _attackRange.x &&
-            Mathf.Abs(_playerPos.position.y - transform.position.y) < _attackRange.y)
+        if (_weaponObjInHand != null &&
+            (Mathf.Abs(_playerPos.position.x - transform.position.x) < _attackRange.x &&
+            Mathf.Abs(_playerPos.position.y - transform.position.y) < _attackRange.y))
         {
             _weaponObjInHand.Attack(_attackModifier);
+        }
+    }
+
+    //
+    public void DropWeapon()
+    {
+        if (Random.Range(1, 3) == 2)
+        {
+            GameObject droppedItem = Instantiate(_weaponDropPrefab, transform.position, transform.rotation);
+            droppedItem.GetComponentInChildren<Interactables>().SetItemType(_weaponObjInHand.GetWeaponType());
+            droppedItem.GetComponentInChildren<Interactables>().SetAmmo(_weaponObjInHand.GetAmmo());
+            _weaponObjInHand = null;
+            Destroy(_weapon);
+            Destroy(droppedItem, 15f);
         }
     }
 }

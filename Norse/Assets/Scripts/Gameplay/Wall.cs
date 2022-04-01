@@ -1,3 +1,8 @@
+/* Script for fading objects (mainly walls) in and out
+ * Programmer: Brandon Bunting
+ * Date Created: 03/22/2022
+ * Date Modified: 03/31/2022
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +12,24 @@ public class Wall : MonoBehaviour
     //
     bool _playerPresent = false;
     public float _fadeSpeed = 1f;
+    public bool _onByDefault = true;
+
+    private void Start()
+    {
+        if (!_onByDefault)
+        {
+            Fade(-1);
+        }
+    }
 
     //
     void FixedUpdate()
     {
-        if (_playerPresent)
+        if ((_playerPresent && _onByDefault) || (!_playerPresent && !_onByDefault))
         {
             Fade(-1);
         }
-        else
+        else if ((!_playerPresent && _onByDefault) || (_playerPresent && !_onByDefault))
         {
             Fade(1);
         }
@@ -39,7 +53,6 @@ public class Wall : MonoBehaviour
         if (collision.tag == "Player")
         {
             _playerPresent = true;
-            Debug.Log("Player Present");
         }
     }
 
@@ -48,7 +61,6 @@ public class Wall : MonoBehaviour
         if (collision.tag == "Player")
         {
             _playerPresent = false;
-            Debug.Log("Player Not Present");
         }
     }
 }
